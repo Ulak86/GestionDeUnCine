@@ -1,1 +1,40 @@
-/bin/
+# Eclipse files
+.metadata/
+.classpath
+.project
+.settings/
+
+# Build output
+bin/
+target/
+
+# MacOS system files (por si alguien usa Mac)
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# IDE specific files
+*.launch
+
+# Maven (por si usas Maven)
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Logs
+*.log
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Others
+*.iml
