@@ -7,14 +7,14 @@ public class Pelicula {
 	private int clasificacionEdad;
 	private double precio;
 	private int id;
+	private static int contadorIds;
 
-	public Pelicula(String titulo, int duracion, int clasificacionEdad, double precio, int id) {
-		super();
+	public Pelicula(String titulo, int duracion, int clasificacionEdad, double precio) {
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.clasificacionEdad = clasificacionEdad;
 		this.precio = precio;
-		this.id = id;
+		this.id = contadorIds++;
 	}
 
 }
