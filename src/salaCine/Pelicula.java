@@ -14,7 +14,15 @@ public class Pelicula {
 		this.duracion = duracion;
 		this.clasificacionEdad = clasificacionEdad;
 		this.precio = precio;
-		this.id = contadorIds++;
+		this.id = ++contadorIds;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
 }

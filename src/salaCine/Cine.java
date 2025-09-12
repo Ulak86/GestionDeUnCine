@@ -1,5 +1,7 @@
 package salaCine;
 
+import java.util.Iterator;
+
 public class Cine {
 
 	String nombre;
@@ -18,4 +20,10 @@ public class Cine {
 		}
 	}
 
+	public SalaDeCine[] getSalas() {
+		return salas;
+	}
+	
+	
+	
 }
