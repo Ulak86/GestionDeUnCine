@@ -14,6 +14,7 @@ public class Usuario {
 		this.entradas = numeroDeEntradas;
 	}
 	
+//	Hla
 	
 
 }
