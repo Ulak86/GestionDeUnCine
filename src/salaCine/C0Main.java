@@ -7,7 +7,7 @@ public class C0Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		bienvenidoAlCine.moloMucho(sc);
+		BienvenidoAlCine.moloMucho(sc);
 		
 		sc.close();
 	}

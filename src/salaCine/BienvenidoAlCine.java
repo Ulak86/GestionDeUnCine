@@ -2,16 +2,26 @@ package salaCine;
 
 import java.util.Scanner;
 
-public class bienvenidoAlCine {
+class BienvenidoAlCine {
 
 	private Cine cine;
 	private SalaDeCine[] salas;
 	Usuario[] usuarios;
 
-	public static void moloMucho(Scanner sc) {
+	
+	/**
+	 * Método que da la bienvenida al usuario al cine y gestiona la interacción.
+	 *
+	 * Este método debe ser llamado desde el programa principal, y es necesario
+	 * pasarle un objeto {@link Scanner} para gestionar la entrada del usuario.
+	 *
+	 * @param sc Objeto Scanner que se utilizará para leer la entrada del usuario.
+	 */
+	
+	static void moloMucho(Scanner sc) {
 
 		System.out.println("Bienvendio al cine.");
-		bienvenidoAlCine bienvenidoAlCineMolon = new bienvenidoAlCine();
+		BienvenidoAlCine bienvenidoAlCineMolon = new BienvenidoAlCine();
 
 		SalaDeCine[] salas = bienvenidoAlCineMolon.salas;
 		Cine cine1 = bienvenidoAlCineMolon.cine;
@@ -27,7 +37,7 @@ public class bienvenidoAlCine {
 			if (metodoSelec == 1) {
 				asistido(sc, salas, cine1, usuarios);
 			} else if (metodoSelec == 2) {
-				menu(sc, salas);
+				menu(sc, salas, usuarios, cine1);
 			} else if (metodoSelec == 3) {
 				salir = true;
 			} else {
@@ -40,8 +50,13 @@ public class bienvenidoAlCine {
 
 	}
 
-	public static void menu(Scanner sc, SalaDeCine[] salas) {
+	private static void menu(Scanner sc, SalaDeCine[] salas, Usuario[] usuarios, Cine cine1) {
+		
+		
+		menuNuevoUsuario(usuarios, sc);
+				
 		boolean salir = false;
+		
 		do {
 			System.out.println(
 					"\nSeleccione la opcion del menu.\n 1. Listar películas y disponibilidad \n 2. Comprar entradas \n 3. Mostrar ocupación por sala\n 4. Salir");
@@ -50,9 +65,9 @@ public class bienvenidoAlCine {
 			if (metodoSelec == 1) {
 				listarPeliculasYDisponibilidad(salas);
 			} else if (metodoSelec == 2) {
-				comprarEntradas();
+				comprarEntrada(cine1, usuarios, sc);
 			} else if (metodoSelec == 3) {
-				mostrarOcupacionPorSala();
+				mostrarOcupacionPorSala(salas);
 			} else if (metodoSelec == 4) {
 				salir = true;
 			} else {
@@ -83,17 +98,69 @@ public class bienvenidoAlCine {
 		}
 	}
 
-	private static void comprarEntradas() {
-		// TODO Auto-generated method stub
+	private static void mostrarOcupacionPorSala(SalaDeCine[] salas) {
+	    for (SalaDeCine sala : salas) {
+	        System.out.println("===============================================");
+	        System.out.println("Sala: " + sala.getNombre());
 
+	        Pelicula pelicula = sala.getPeliculaProyectada();
+	        if (pelicula != null) {
+	            System.out.println("Película proyectada: " + pelicula.getTitulo());
+	        } else {
+	            System.out.println("Película proyectada: (ninguna)");
+	        }
+
+	        Usuario[][] butacas = sala.getButacas();
+	        System.out.println("Detalle de butacas:");
+
+	        // Detalles de cada butaca
+	        for (int i = 0; i < butacas.length; i++) {
+	            for (int j = 0; j < butacas[i].length; j++) {
+	                Usuario usuario = butacas[i][j];
+	                System.out.print("Butaca [" + i + "][" + j + "]: ");
+	                if (usuario == null) {
+	                    System.out.println("Libre");
+	                } else {
+	                    System.out.println("Ocupada por " + usuario.getNombre() + " (DNI: " + usuario.getDni() + ")");
+	                }
+	            }
+	        }
+
+	        // Representación gráfica
+	        System.out.println("\nMapa gráfico de la sala:");
+
+	        // Encabezado con índices de columnas
+	        System.out.print("    ");
+	        for (int j = 0; j < butacas[0].length; j++) {
+	            System.out.printf(" %2d ", j);
+	        }
+	        System.out.println();
+
+	        // Separador
+	        System.out.print("    ");
+	        for (int j = 0; j < butacas[0].length; j++) {
+	            System.out.print("----");
+	        }
+	        System.out.println();
+
+	        // Filas con índices y estado
+	        for (int i = 0; i < butacas.length; i++) {
+	            System.out.printf(" %2d|", i);
+	            for (int j = 0; j < butacas[i].length; j++) {
+	                char simbolo = (butacas[i][j] == null) ? 'L' : 'X';
+	                System.out.printf(" %2c ", simbolo);
+	            }
+	            System.out.println();
+	        }
+
+	        System.out.println("\n(L = Libre, X = Ocupada)");
+	        System.out.println("===============================================\n");
+	    }
 	}
 
-	private static void mostrarOcupacionPorSala() {
-		// TODO Auto-generated method stub
 
-	}
 
-	public bienvenidoAlCine() {
+	public BienvenidoAlCine() {
 		Cine cine1 = new Cine("CineParadiso", 3);
 
 		Pelicula pelicula1 = new Pelicula("El Gran Viaje", 120, 18, 8.50);
@@ -116,7 +183,7 @@ public class bienvenidoAlCine {
 
 	}
 
-	public static void asistido(Scanner sc, SalaDeCine[] salas, Cine cine1, Usuario[] usuarios) {
+	private static void asistido(Scanner sc, SalaDeCine[] salas, Cine cine1, Usuario[] usuarios) {
 
 		cine1.asignarSalas(salas);
 
@@ -126,7 +193,7 @@ public class bienvenidoAlCine {
 
 	}
 
-	public static Usuario[] menuNuevoUsuario(Usuario[] usuarios, Scanner sc) {
+	private static Usuario[] menuNuevoUsuario(Usuario[] usuarios, Scanner sc) {
 
 		System.out.println("Para poder continuar has de crear un usuario. Por favor, introduce tu nombre.");
 		String nombre = sc.nextLine();
@@ -157,7 +224,7 @@ public class bienvenidoAlCine {
 		return usuarios;
 	}
 
-	public static Cine comprarEntrada(Cine cine, Usuario[] usuarios, Scanner sc) {
+	private static Cine comprarEntrada(Cine cine, Usuario[] usuarios, Scanner sc) {
 
 		int numeroDeEntradas = 0;
 

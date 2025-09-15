@@ -22,4 +22,9 @@ public class Usuario {
 		return dni;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	
 }
