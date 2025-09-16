@@ -66,6 +66,7 @@ class BienvenidoAlCine {
 				listarPeliculasYDisponibilidad(salas);
 			} else if (metodoSelec == 2) {
 				comprarEntrada(cine1, usuarios, sc);
+				salir = true;
 			} else if (metodoSelec == 3) {
 				mostrarOcupacionPorSala(salas);
 			} else if (metodoSelec == 4) {
